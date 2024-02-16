@@ -1,6 +1,6 @@
 from scipy import stats
 
-from src.services.statisticsTest import StatisticsTest
+from src.services.comparison.statisticsTest import ComparisonStatisticsTest
 from src.services.assumptions.equalVariance.result import EqualVarianceResult
 
 class LevenesTestResult:
@@ -10,7 +10,7 @@ class LevenesTestResult:
     pvalue: float
     passed: bool
 
-class LevenesTest(StatisticsTest):
+class LevenesTest(ComparisonStatisticsTest):
     name = "Levene's Test"
 
     def execute(self):

@@ -1,12 +1,12 @@
 from scipy import stats
 
-from src.services.statisticsTest import StatisticsTest
+from src.services.comparison.statisticsTest import ComparisonStatisticsTest
 from src.services.comparison.result import ComparisonTestResult
 
 from src.services.assumptions.normality.shapiroWilk import ShapiroWilkTest
 from src.services.assumptions.equalVariance.levenes import LevenesTest
 
-class AnovaTest(StatisticsTest):
+class AnovaTest(ComparisonStatisticsTest):
     name = "ANOVA Test"
 
     def checkAssumptions(self):

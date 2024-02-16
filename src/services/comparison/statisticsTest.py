@@ -1,15 +1,15 @@
 from abc import abstractmethod
-from ..models.testData import TestData
+from ...models.comparisonTestData import ComparisonTestData
 
-class StatisticsTest():
+class ComparisonStatisticsTest():
     name: str = "test"
     assumptionsPassed: bool = True
     assumptionsResults: dict = {}
     assumptionsConclusion: str
     
-    testData: TestData
+    testData: ComparisonTestData
     
-    def __init__(self, testData: TestData) -> None:
+    def __init__(self, testData: ComparisonTestData) -> None:
         self.testData = testData
 
     @abstractmethod

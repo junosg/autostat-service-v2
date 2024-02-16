@@ -1,9 +1,9 @@
 from scipy import stats
 
-from src.services.statisticsTest import StatisticsTest
+from src.services.comparison.statisticsTest import ComparisonStatisticsTest
 from src.services.assumptions.normality.result import NormalityResult
 
-class ShapiroWilkTest(StatisticsTest):
+class ShapiroWilkTest(ComparisonStatisticsTest):
     name = "Shapiro-Wilk Test"
 
     def execute(self):

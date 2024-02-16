@@ -1,13 +1,13 @@
 from scipy import stats
 
-from src.services.statisticsTest import StatisticsTest
+from src.services.comparison.statisticsTest import ComparisonStatisticsTest
 from src.services.comparison.result import ComparisonTestResult
 
-class WilcoxonSignedRankTest(StatisticsTest):
+class WilcoxonSignedRankTest(ComparisonStatisticsTest):
     name = "Wilcoxon Signed-Rank Test"
     
     def checkAssumptions(self):
-        self.assumptionsConclusion = f"Since the assumptions of normality and equal variances are not required for the {self.name}, we can confidently utilize this test to compare the distributions of scores between the two paired groups"
+        self.assumptionsConclusion = f"Since the assumptions of normality and equal variances are not required for the {self.name}, we can confidently utilize this test to compare the distributions of {self.testData.outcome} between {self.testData.predictor} groups"
 
     def execute(self):
         result = stats.wilcoxon(*self.testData.valueList)

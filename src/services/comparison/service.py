@@ -1,17 +1,17 @@
-from src.models.testData import TestData
+from src.models.comparisonTestData import ComparisonTestData
 
-from src.services.comparison.twoGroups.twoGroupsService import TwoGroupsService
-from src.services.comparison.pairedGroups.pairedGroupsService import PairedGroupsService
-from src.services.comparison.manyGroups.manyGroupsService import ManyGroupsService
+from src.services.comparison.twoGroups.service import TwoGroupsService
+from src.services.comparison.pairedGroups.service import PairedGroupsService
+from src.services.comparison.manyGroups.service import ManyGroupsService
 
 class ComparisonService():
     twoGroupsService: TwoGroupsService
     pairedGroupsService: PairedGroupsService
     manyGroupsService: ManyGroupsService
     
-    testData: TestData
+    testData: ComparisonTestData
     
-    def __init__(self, testData: TestData) -> None:
+    def __init__(self, testData: ComparisonTestData) -> None:
         self.testData = testData
 
         self.twoGroupsService = TwoGroupsService(testData)

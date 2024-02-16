@@ -1,9 +1,9 @@
 from scipy import stats
 
-from src.services.statisticsTest import StatisticsTest
+from src.services.comparison.statisticsTest import ComparisonStatisticsTest
 from src.services.comparison.result import ComparisonTestResult
 
-class WilcoxonRankSumTest(StatisticsTest):
+class WilcoxonRankSumTest(ComparisonStatisticsTest):
     name = "Wilcoxon Rank-Sum Test"
     
     def checkAssumptions(self):

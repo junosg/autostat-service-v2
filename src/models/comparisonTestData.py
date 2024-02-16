@@ -1,7 +1,7 @@
 import numpy as np
 import scipy.stats as stats
 
-class TestData():
+class ComparisonTestData():
     levelOfSignificance: float
     predictor: str
     outcome: str

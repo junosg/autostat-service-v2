@@ -7,18 +7,16 @@ from pydantic.functional_validators import AfterValidator
 
 from ..requests.test import PerformTestRequest
 
-from ..models.testData import TestData
+from ..models.comparisonTestData import ComparisonTestData
 
-from src.services.comparison.comparisonService import ComparisonService
+from src.services.comparison.service import ComparisonService
 
 test_router = APIRouter()
 
 @test_router.post('/performTest')
 async def perform_test(request: PerformTestRequest):
-    testData = TestData(request.data, request.levelOfSignificance, request.predictor, request.outcome, request.predictorPaired)
+    testData = ComparisonTestData(request.data, request.levelOfSignificance, request.predictor, request.outcome, request.predictorPaired)
 
-    # levenes = LevenesTest(testData=testData).execute()
-    # shapiro = ShapiroWilkTest(testData=testData).execute()
     test = ComparisonService(testData=testData)
 
     return test.analyze()

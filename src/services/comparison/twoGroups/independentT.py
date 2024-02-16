@@ -1,12 +1,12 @@
 from scipy import stats
 
-from src.services.statisticsTest import StatisticsTest
+from src.services.comparison.statisticsTest import ComparisonStatisticsTest
 from src.services.comparison.result import ComparisonTestResult
 
 from src.services.assumptions.normality.shapiroWilk import ShapiroWilkTest
 from src.services.assumptions.equalVariance.levenes import LevenesTest
 
-class IndependentTTest(StatisticsTest):
+class IndependentTTest(ComparisonStatisticsTest):
     name = "Independent T-test"
     
     def checkAssumptions(self):

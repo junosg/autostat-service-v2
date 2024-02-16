@@ -1,9 +1,9 @@
 from scipy import stats
 
-from src.services.statisticsTest import StatisticsTest
+from src.services.comparison.statisticsTest import ComparisonStatisticsTest
 from src.services.comparison.result import ComparisonTestResult
 
-class KruskalWallisTest(StatisticsTest):
+class KruskalWallisTest(ComparisonStatisticsTest):
     name = "Kruskal-Wallis H Test"
 
     def checkAssumptions(self):

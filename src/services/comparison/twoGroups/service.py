@@ -1,23 +1,23 @@
-from src.models.testData import TestData
-from src.services.statisticsTest import StatisticsTest
+from src.models.comparisonTestData import ComparisonTestData
+from src.services.comparison.statisticsTest import ComparisonStatisticsTest
 from src.services.comparison.result import ComparisonTestResult
 
-from src.services.comparison.pairedGroups.pairedT import PairedTTest
-from src.services.comparison.pairedGroups.wilcoxonSignedRank import WilcoxonSignedRankTest
+from src.services.comparison.twoGroups.independentT import IndependentTTest
+from src.services.comparison.twoGroups.wilcoxonRankSum import WilcoxonRankSumTest
 
-class PairedGroupsService():
-    tests: list[StatisticsTest] = [PairedTTest, WilcoxonSignedRankTest]
+class TwoGroupsService():
+    tests: list[ComparisonStatisticsTest] = [IndependentTTest, WilcoxonRankSumTest]
     
-    def __init__(self, testData: TestData) -> None:
+    def __init__(self, testData: ComparisonTestData) -> None:
         self.checkPrerequisites(testData=testData)
         
-        self.tests: list[StatisticsTest] = list(map(lambda test: test(testData), self.tests))
+        self.tests: list[ComparisonStatisticsTest] = list(map(lambda test: test(testData), self.tests))
 
         for test in self.tests:
             test.checkAssumptions()
-            
-    def checkPrerequisites(self, testData: TestData):
-        self.prereqPassed = bool(len(testData.columns) == 2) and testData.predictorPaired
+
+    def checkPrerequisites(self, testData: ComparisonTestData):
+        self.prereqPassed = bool(len(testData.columns) == 2) and testData.predictorPaired == False
 
     def analyze(self):
         returnValue = ComparisonTestResult()
@@ -40,4 +40,3 @@ class PairedGroupsService():
             }
 
         return returnValue
-        
