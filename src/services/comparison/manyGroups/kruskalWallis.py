@@ -2,6 +2,7 @@ from scipy import stats
 
 from src.services.comparison.statisticsTest import ComparisonStatisticsTest
 from src.services.comparison.result import ComparisonTestResult
+from src.services.comparison.postHocs.dunns import DunnsTest
 
 class KruskalWallisTest(ComparisonStatisticsTest):
     name = "Kruskal-Wallis H Test"
@@ -17,12 +18,9 @@ class KruskalWallisTest(ComparisonStatisticsTest):
         returnValue.statistic = result.statistic
         returnValue.pvalue = result.pvalue
        
-        if result.pvalue > self.testData.levelOfSignificance:
-            returnValue.conclusion = f"The {self.name} results indicate a p-value of {result.pvalue}. Since this value is above the significant threshold of {self.testData.levelOfSignificance}, we can conclude that there is no significant difference in {self.testData.outcome} between {self.testData.predictor} groups."
-        else:
-            returnValue.conclusion = f"The {self.name} results indicate a p-value of {result.pvalue}. Since this value is below the significant threshold of {self.testData.levelOfSignificance}, we can conclude that there is a significant difference in {self.testData.outcome} between {self.testData.predictor} groups."
-
-        # if (result.pvalue < 0.05):
-        #     returnValue["postHoc"] = DunnsTest(self.dataSource).execute()
+        returnValue.setConclusion(self.testData)
+        
+        if result.pvalue <= self.testData.levelOfSignificance:
+            returnValue.postHoc = DunnsTest(self.testData).execute()
 
         return returnValue

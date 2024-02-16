@@ -5,6 +5,7 @@ from src.services.comparison.result import ComparisonTestResult
 
 from src.services.assumptions.normality.shapiroWilk import ShapiroWilkTest
 from src.services.assumptions.equalVariance.levenes import LevenesTest
+from src.services.comparison.postHocs.tukeys import TukeysTest
 
 class AnovaTest(ComparisonStatisticsTest):
     name = "ANOVA Test"
@@ -34,12 +35,9 @@ class AnovaTest(ComparisonStatisticsTest):
         returnValue.statistic = result.statistic
         returnValue.pvalue = result.pvalue
         
-        if result.pvalue > self.testData.levelOfSignificance:
-            returnValue.conclusion = f"The {self.name} results indicate a p-value of {result.pvalue}. Since this value is above the significant threshold of {self.testData.levelOfSignificance}, we can conclude that there is no significant difference in {self.testData.outcome} between {self.testData.predictor} groups."
-        else:
-            returnValue.conclusion = f"The {self.name} results indicate a p-value of {result.pvalue}. Since this value is below the significant threshold of {self.testData.levelOfSignificance}, we can conclude that there is a significant difference in {self.testData.outcome} between {self.testData.predictor} groups."
-
-        # if (result.pvalue < 0.05):
-        #     returnValue.postHoc = TukeysTest(self.dataSource).execute()
+        returnValue.setConclusion(self.testData)
+        
+        if result.pvalue <= self.testData.levelOfSignificance:
+            returnValue.postHoc = TukeysTest(self.testData).execute()
 
         return returnValue

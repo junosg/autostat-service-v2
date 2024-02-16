@@ -17,9 +17,6 @@ class WilcoxonSignedRankTest(ComparisonStatisticsTest):
         returnValue.statistic = result.statistic
         returnValue.pvalue = result.pvalue
 
-        if result.pvalue > self.testData.levelOfSignificance:
-            returnValue.conclusion = f"The {self.name} results indicate a p-value of {result.pvalue}. Since this value is above the significant threshold of {self.testData.levelOfSignificance}, we can conclude that there is no significant difference in {self.testData.outcome} between {self.testData.predictor} groups."
-        else:
-            returnValue.conclusion = f"The {self.name} results indicate a p-value of {result.pvalue}. Since this value is below the significant threshold of {self.testData.levelOfSignificance}, we can conclude that there is a significant difference in {self.testData.outcome} between {self.testData.predictor} groups."
+        returnValue.setConclusion(self.testData)
 
         return returnValue
